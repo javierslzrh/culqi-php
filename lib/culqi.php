@@ -13,7 +13,15 @@
  */
 
 // Errors
-include_once dirname(__FILE__).'/Culqi/Error/Errors.php';
+include_once dirname(__FILE__).'/Culqi/Error/CulqiException.php';
+include_once dirname(__FILE__).'/Culqi/Error/AuthenticationException.php';
+include_once dirname(__FILE__).'/Culqi/Error/InputValidationException.php';
+include_once dirname(__FILE__).'/Culqi/Error/CardException.php';
+include_once dirname(__FILE__).'/Culqi/Error/MethodNotAllowedException.php';
+include_once dirname(__FILE__).'/Culqi/Error/NotFoundException.php';
+include_once dirname(__FILE__).'/Culqi/Error/UnableToConnectException.php';
+include_once dirname(__FILE__).'/Culqi/Error/UnhandledException.php';
+
 include_once dirname(__FILE__).'/Culqi/Client.php';
 include_once dirname(__FILE__).'/Culqi/Resource.php';
 

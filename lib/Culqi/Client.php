@@ -26,26 +26,27 @@ class Client {
                 $response = \Requests::delete(Culqi::BASE_URL. $url . $url_params, $headers, $options);
             }
         } catch (\Exception $e) {
-            throw new Errors\UnableToConnect();
+            throw new Errors\UnableToConnectException();
         }
+        
         if ($response->status_code >= 200 && $response->status_code <= 206) {
             return json_decode($response->body);
         }
         if ($response->status_code == 400) {
-            throw new Errors\UnhandledError($response->body, $response->status_code);
+            throw Errors\InputValidationException::fromJson($response->body);
         }
         if ($response->status_code == 401) {
-            throw new Errors\AuthenticationError();
+            throw Errors\AuthenticationException::fromJson($response->body);
+        }
+        if ($response->status_code == 402) {
+            throw Errors\CardException::fromJson($response->body);
         }
         if ($response->status_code == 404) {
-            throw new Errors\NotFound();
-        }
-        if ($response->status_code == 403) {
-            throw new Errors\InvalidApiKey();
+            throw new Errors\NotFoundException();
         }
         if ($response->status_code == 405) {
-            throw new Errors\MethodNotAllowed();
+            throw new Errors\MethodNotAllowedException();
         }
-        throw new Errors\UnhandledError($response->body, $response->status_code);
+        throw new Errors\UnhandledException();
     }
 }
